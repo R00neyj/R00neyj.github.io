@@ -42,6 +42,9 @@
 [data-font="satoshi"] {
   font-family: var(--font-Satoshi);
 }
+[data-font="commitMono"] {
+  font-family: var(--font-Monoface);
+}
 
 .content-wrap {
   max-width: min(2560px, 184rem);
@@ -57,9 +60,15 @@ section {
 }
 
 .section-header {
+  display: flex;
   font-size: var(--font-Title-L);
   line-height: 1;
   font-weight: 700;
+  border-bottom: 1px solid var(--black);
+
+  span {
+    font-size: 12rem;
+  }
 }
 
 .svg-box,
@@ -159,6 +168,7 @@ header nav ul {
 /* .sec-hero */
 .sec-hero {
   height: 100vh;
+  z-index: 1;
   .content-wrap {
     display: flex;
     padding: 4rem 0;
@@ -231,10 +241,6 @@ header nav ul {
 /* section about */
 .sec-about .content-wrap {
   padding: var(--padding-y) 0;
-}
-
-.sec-about h2 {
-  border-bottom: 1px solid var(--black);
 }
 
 .sec-about .flex-box {
@@ -348,17 +354,15 @@ header nav ul {
 
 /* cursor */
 .cursor {
-  pointer-events: none;
-  position: fixed;
-  inset: 0 0 0 0;
-  z-index: 99;
-  opacity: 0.1;
+  opacity: 1;
 
   > div {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: var(--black);
+    pointer-events: none;
+    z-index: 99;
   }
 
   .x {
@@ -375,5 +379,77 @@ header nav ul {
     border-radius: 99rem;
     background-color: transparent;
     border: 0.1rem solid var(--black);
+    z-index: 98;
+  }
+}
+
+/* sec-wroks */
+.sec-works .work-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sec-works .work-list-item {
+  padding: 2.4rem 0;
+
+  .inner {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .box-1 {
+    width: 100%;
+    max-width: 60rem;
+    font-size: var(--font-Body-L);
+
+    .label {
+      margin: 0 0 1rem 0.4rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--gray);
+    }
+    .work-name {
+      font-size: var(--font-Heading-L);
+      font-weight: var(--font-Heading);
+      margin-bottom: 0.8rem;
+      line-height: 1;
+    }
+    .skills {
+      font-weight: 700;
+    }
+    .desc {
+      margin-top: 4rem;
+      line-height: 1.7;
+    }
+    .roll {
+      margin-top: 1rem;
+      opacity: 0.7;
+      font-size: var(--font-Body-M);
+    }
+    .btn-wrap {
+      display: flex;
+      gap: 2rem;
+      padding-top: 4rem;
+    }
+    .btn a {
+      display: flex;
+      align-items: center;
+      padding: 2.4rem;
+      line-height: 1;
+      font-weight: var(--font-Body-XL);
+      background-color: var(--black);
+      color: var(--white);
+    }
+  }
+
+  .box-2 {
+    flex-grow: 1;
+    overflow: hidden;
+    border-radius: 1.6rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
