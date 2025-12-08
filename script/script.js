@@ -23,6 +23,9 @@ const marquee__init = () => {
 const header__sticky = () => {
   const header = document.querySelector("header");
 
+  const about = document.querySelector(".sec-about");
+  const ToAbout = document.querySelector(".toAbout");
+
   ScrollTrigger.create({
     trigger: header,
     pin: true,
@@ -31,6 +34,15 @@ const header__sticky = () => {
     end: "max",
     onEnter: () => header.classList.add("active"),
     onLeaveBack: () => header.classList.remove("active"),
+  });
+
+  ScrollTrigger.create({
+    trigger: about,
+    start: "top top",
+    onEnter: () => ToAbout.classList.add("active"),
+    onEnterBack: () => ToAbout.classList.add("active"),
+    onLeave: () => ToAbout.classList.remove("active"),
+    onLeaveBack: () => ToAbout.classList.remove("active"),
   });
 };
 
@@ -50,6 +62,7 @@ const gsapAni__works = () => {
   const workListContainer = document.querySelector(".work-list-container");
   const workListItem = document.querySelectorAll(".work-list-item");
   const img = workListItem[0].querySelector("img");
+  const ToWorks = document.querySelector(".toWorks");
 
   const workListArr = Array.from(workListItem);
   workListArr.splice(4, 1);
@@ -77,6 +90,11 @@ const gsapAni__works = () => {
     end: `+=${originH * 5}`,
     animation: tl,
     scrub: 0.5,
+
+    onEnter: () => ToWorks.classList.add("active"),
+    onEnterBack: () => ToWorks.classList.add("active"),
+    onLeave: () => ToWorks.classList.remove("active"),
+    onLeaveBack: () => ToWorks.classList.remove("active"),
   });
 };
 
@@ -199,7 +217,7 @@ const createWorksComponent = (works, index) => {
         </div>
       </div>
       <div class="box box-2">
-        <a href="${works.btns[0].link}" target="_blank" class="img-box"><img src="${works.imgSrc}" alt="${works.id} thumbnail" data-speed="${dataSpeed}"/></a>
+        <a href="${works.btns[0].link}" target="_blank" class="img-box" data-hover="true"><img src="${works.imgSrc}" alt="${works.id} thumbnail" data-speed="${dataSpeed}"/></a>
       </div>
     </div>
   </li>`;
@@ -222,13 +240,69 @@ async function getData__init() {
   });
 
   getWorkQTY();
-  marquee__init();
   gsapAni__init();
-  mouseReticle();
 }
-getData__init();
 
-window.addEventListener("load", () => {});
+const loading__init = () => {
+  const spanAll = document.querySelectorAll(`.loading-page [data-split="true"]`);
+  const body = document.querySelector("body");
+  const loadingScreen = document.querySelector(".loading-page");
+  body.style.overflow = "hidden";
+  loadingScreen.classList.add("active");
+
+  const skeepBtn = document.querySelector("#loading_skip");
+
+  let tl = gsap.timeline({
+    onComplete: loadingFinish,
+  });
+
+  spanAll.forEach((el) => {
+    let currentText = el.textContent;
+    let newText = "";
+    currentText.split("").forEach((char) => {
+      if (char === " ") newText += `&nbsp;`;
+      else if (char === ".") newText += `<span class="dot">${char}</span>`;
+      else newText += `<span>${char}</span>`;
+    });
+    el.innerHTML = "";
+    el.innerHTML = newText;
+
+    tl.from(el.children, { opacity: 0, duration: 0.03, stagger: 0.03, ease: "none" });
+    tl.to({}, { duration: 0.1 });
+  });
+  tl.to({}, { duration: 0.4 });
+
+  skeepBtn.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") tl.pause(), loadingFinish();
+  });
+};
+
+function loadingFinish() {
+  marquee__init();
+  mouseReticle();
+  document.querySelector(".loading-page").classList.remove("active");
+  document.querySelector("body").style.overflow = "auto";
+
+  const tl = gsap.timeline();
+
+  tl.to(".loading-page", { scale: 2, duration: 0.6, ease: "power2.out" });
+
+  const aniTarget = document.querySelectorAll(`
+  .sec-hero .svg-box svg,
+  .sec-hero .text-box span`);
+
+  let targetArr = Array.from(aniTarget);
+
+  const header = document.querySelector("header");
+  targetArr.push(header);
+
+  console.log(targetArr);
+
+  tl.from(targetArr, { stagger: 0.2, opacity: 0, y: 30, duration: 1, ease: "power2.out" });
+}
+
+getData__init();
+loading__init();
 
 window.addEventListener("resize", () => {
   marquee__init();
