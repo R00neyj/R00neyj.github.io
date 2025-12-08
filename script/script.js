@@ -29,10 +29,56 @@ const header__sticky = () => {
     pinSpacing: false,
     start: "top top",
     end: "max",
+    onEnter: () => header.classList.add("active"),
+    onLeaveBack: () => header.classList.remove("active"),
   });
 };
 
-const gsapAni__init = () => {};
+const gsapAni__init = () => {
+  const workListItem = document.querySelectorAll(".work-list-item");
+  const img = workListItem[0].querySelector("img");
+
+  img.onload = () => {
+    header__sticky();
+    gsapScrollTo();
+    gsapAni__Draggable();
+    gsapAni__works();
+  };
+};
+
+const gsapAni__works = () => {
+  const workListContainer = document.querySelector(".work-list-container");
+  const workListItem = document.querySelectorAll(".work-list-item");
+  const img = workListItem[0].querySelector("img");
+
+  const workListArr = Array.from(workListItem);
+  workListArr.splice(4, 1);
+
+  workListArr.forEach((el) => {
+    el.style.willChange = "height, opacity";
+  });
+
+  const tl = gsap.timeline();
+  let initialH = "10rem";
+  let originH;
+  let headerH = document.querySelector("header").offsetHeight;
+  let masterDuration = 0.5;
+
+  tl.to(workListArr, { stagger: masterDuration, height: initialH, duration: masterDuration, ease: "none" });
+  tl.to(workListArr, { stagger: masterDuration, height: 0, opacity: 0.5, duration: masterDuration, ease: "none" }, `<${100 / workListArr.length}%`);
+  tl.to(workListArr, { stagger: masterDuration, padding: 0, duration: masterDuration, ease: "none" }, `<${100 / workListArr.length}%`);
+
+  originH = workListItem[0].offsetHeight;
+
+  ScrollTrigger.create({
+    trigger: workListContainer,
+    pin: true,
+    start: `=-${headerH} top`,
+    end: `+=${originH * 5}`,
+    animation: tl,
+    scrub: 0.5,
+  });
+};
 
 const gsapScrollTo = () => {
   const toAbout = document.querySelector(".toAbout");
@@ -49,38 +95,49 @@ const gsapScrollTo = () => {
 };
 
 const mouseReticle = () => {
-  const cursorEl = document.querySelector(".cursor");
-  const XEl = cursorEl.querySelector(".x");
-  const YEl = cursorEl.querySelector(".y");
-  const circle = cursorEl.querySelector(".circle");
+  // const cursorEl = document.querySelector(".cursor");
+  // const XEl = cursorEl.querySelector(".x");
+  // const YEl = cursorEl.querySelector(".y");
+  const circle = document.querySelector(".circle");
 
   document.addEventListener("mousemove", (e) => {
     let mouseX = e.clientX + 5;
     let mouseY = e.clientY + 5;
 
-    XEl.style.transform = `translateY(${mouseY}px)`;
-    YEl.style.transform = `translateX(${mouseX}px)`;
-    circle.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+    // XEl.style.transform = `translateY(${mouseY}px)`;
+    // YEl.style.transform = `translateX(${mouseX}px)`;
+    // circle.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+
+    gsap.to(circle, { x: mouseX, y: mouseY, duration: 0, ease: "none" });
+  });
+
+  const alinkAll = document.querySelectorAll("a");
+  alinkAll.forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      gsap.to(circle, { scale: 1.5, duration: 0.3 });
+    });
+    el.addEventListener("mouseleave", () => {
+      gsap.to(circle, { scale: 1, duration: 0.3 });
+    });
   });
 };
-
 const gsapAni__Draggable = () => {
   const dragBounds = document.querySelector(".sec-hero");
   const dragEl = dragBounds.querySelectorAll(".sec-hero .svg-box svg, .sec-hero .text-box span");
-
-  Draggable.create(dragEl, {
-    bounds: dragBounds,
-    inertia: true,
-  });
 
   let rotateDegBefore = [-2, 2];
   let rotateDegAfter = [-1, 0, 1];
   let ease = "power1.out";
   let duration = 0.3;
 
+  Draggable.create(dragEl, {
+    bounds: dragBounds,
+    inertia: true,
+  });
+
   dragEl.forEach((el) => {
     el.addEventListener("pointerdown", () => {
-      gsap.to(el, { scale: 1.02, rotate: gsap.utils.random(rotateDegBefore), ease: ease, duration: duration });
+      gsap.to(el, { scale: 1.03, rotate: gsap.utils.random(rotateDegBefore), ease: ease, duration: duration });
     });
     el.addEventListener("pointerup", () => {
       gsap.to(el, { scale: 1, rotate: gsap.utils.random(rotateDegAfter), ease: ease, duration: duration });
@@ -91,11 +148,25 @@ const gsapAni__Draggable = () => {
 const getWorkQTY = () => {
   const displayWorkQTY = document.querySelector(".sec-works .work-numb");
   const WorkListAll = document.querySelectorAll(".work-list-item");
-  displayWorkQTY.textContent = WorkListAll.length;
+  displayWorkQTY.setAttribute("data-counter", WorkListAll.length);
+
+  const tl = gsap.timeline();
+  tl.to(displayWorkQTY, {
+    innerHTML: WorkListAll.length,
+    ease: "power1.out",
+    snap: { innerHTML: 1 },
+    duration: 1,
+  });
+
+  ScrollTrigger.create({
+    trigger: ".sec-works",
+    animation: tl,
+    toggleActions: "play none none none",
+  });
 };
 
-const createWorksComponent = (works) => {
-  const dataSpeed = 0.5;
+const createWorksComponent = (works, index) => {
+  const dataSpeed = 1;
   const btnHTML = works.btns
     .map(
       (btn) => `
@@ -128,37 +199,36 @@ const createWorksComponent = (works) => {
         </div>
       </div>
       <div class="box box-2">
-        <div class="img-box"><img src="${works.imgSrc}" alt="${works.id} thumbnail" data-speed="${dataSpeed}"/></div>
+        <a href="${works.btns[0].link}" target="_blank" class="img-box"><img src="${works.imgSrc}" alt="${works.id} thumbnail" data-speed="${dataSpeed}"/></a>
       </div>
     </div>
   </li>`;
 };
 
-async function init() {
+async function getData__init() {
   const response = await fetch("../script/works.json");
   const worksData = await response.json();
   const workContainer = document.querySelector(".sec-works .work-list-container");
 
-  worksData.forEach((el) => {
+  worksData.forEach((el, index) => {
     const worksComp = createWorksComponent(el);
     workContainer.insertAdjacentHTML("beforeend", worksComp);
   });
 
-  getWorkQTY();
   ScrollSmoother.create({
     smooth: 1,
     speed: 1,
     effects: true,
   });
 
-  gsapScrollTo();
-  header__sticky();
+  getWorkQTY();
   marquee__init();
-  gsapAni__Draggable();
+  gsapAni__init();
+  mouseReticle();
 }
-document.addEventListener("DOMContentLoaded", () => {
-  init();
-});
+getData__init();
+
+window.addEventListener("load", () => {});
 
 window.addEventListener("resize", () => {
   marquee__init();

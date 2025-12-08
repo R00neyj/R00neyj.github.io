@@ -11,7 +11,7 @@
       { "text": "Process", "link": "https://r00neyj.github.io/sweatie_process_page/" },
       { "text": "Web", "link": "https://r00neyj.github.io/Sweatie_Brand_Web/" }
     ],
-    "imgSrc": "./images/work_thumbnail_3.webp"
+    "imgSrc": "./images/sweatie.webp"
   },
   {
     "id": "eatgo",
@@ -22,7 +22,7 @@
     "desc": "번거로운 기록 과정을 줄여주고 사용자가 신경 쓰지 않게 식습관 관리를 도와주기 위한 앱 프로젝트 입니다",
     "roll": "팀 리더",
     "btns": [{ "text": "Process", "link": "https://r00neyj.github.io/Eatgo_Process/" }],
-    "imgSrc": "./images/work_thumbnail_2.webp"
+    "imgSrc": "./images/eatgo.webp"
   },
   {
     "id": "yp",

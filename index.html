@@ -26,7 +26,7 @@
   <body>
     <div id="smooth-wrapper">
       <div id="smooth-content">
-        <header>
+        <header data-speed="0">
           <div class="inner">
             <nav>
               <ul>
@@ -188,7 +188,7 @@
           <div class="content-wrap">
             <div class="section-header">
               <h2>Works</h2>
-              <span>(<span class="work-numb"></span>)</span>
+              <span>(<span class="work-numb">0</span>)</span>
             </div>
             <ul class="work-list-container">
               <!-- <li class="work-list-item">
@@ -221,15 +221,31 @@
           </div>
         </section>
 
-        <footer></footer>
+        <footer>
+          <div class="content-wrap">
+            <div class="section-header">
+              <h2>Contact</h2>
+              <div class="grid-box" data-font="satoshi">
+                <div class="cell">Cell</div>
+                <div class="cell">010.2987.0536</div>
+                <div class="mail">Mail</div>
+                <div class="mail">yjw1555@gmail.com</div>
+                <div class="sns"><a href="https://github.com/R00neyj" target="_blank">Github</a></div>
+                <div class="sns"><a href="https://www.instagram.com/r0_0neyj/" target="_blank"> Instagram</a></div>
+              </div>
+            </div>
+            <p class="copyright" data-font="commitMono">© Copyright 2025 R00neyj</p>
+          </div>
+        </footer>
       </div>
     </div>
 
     <!-- <div class="cursor">
       <div class="x"></div>
       <div class="y"></div>
-      <div class="circle"></div>
     </div> -->
+
+    <div class="circle"></div>
 
     <!-- GSAP -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
