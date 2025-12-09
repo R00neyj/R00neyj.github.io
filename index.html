@@ -37,7 +37,7 @@
         <span data-split="true">0% ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 100%</span>
         <br />
         <br />
-        <span data-split="true">Initializing...</span>
+        <span data-split="true" class="init">Initializing...</span>
         <div class="text-field"><span>P:\Works></span><input type="text" name="nothing" autofocus id="loading_skip" placeholder="Enter to Skip" /></div>
       </div>
     </div>
@@ -79,7 +79,7 @@
           <h1>hero section</h1>
           <div class="content-wrap">
             <div class="svg-box logo-svg">
-              <svg width="1440" height="354" viewBox="0 0 1440 354" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg data-gsap="drag" width="1440" height="354" viewBox="0 0 1440 354" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="1344.57" height="366" transform="matrix(1 0 -0.258819 0.965926 94.7285 0)" fill="#222222" />
                 <rect width="1320.57" height="342" transform="matrix(1 0 -0.258819 0.965926 103.623 11.5918)" fill="#EEEEEE" />
                 <rect width="1312.57" height="334" transform="matrix(1 0 -0.258819 0.965926 106.588 15.4551)" fill="#222222" />
@@ -119,10 +119,10 @@
               </svg>
             </div>
             <div class="text-box">
-              <span class="date year">2025</span>
-              <span class="uppercase">web</span>
-              <span class="uppercase">ux/ui</span>
-              <span class="">Branding</span>
+              <span data-gsap="drag" class="date year">2025</span>
+              <span data-gsap="drag" class="uppercase">web</span>
+              <span data-gsap="drag" class="uppercase">ux/ui</span>
+              <span data-gsap="drag" class="">Branding</span>
             </div>
             <div class="sec-bg"></div>
           </div>
@@ -147,36 +147,36 @@
           <h1>About</h1>
           <div class="content-wrap">
             <div class="section-header">
-              <h2>About</h2>
+              <h2 data-gsap="text-wave">About</h2>
             </div>
 
             <div class="flex-box">
               <div class="box box-1">
                 <div class="img-box">
-                  <img src="./images/Profile_img.jpg" alt="Profile Img" />
+                  <img src="./images/Profile_img.jpg" alt="Profile Img" data-gsap="drag" />
                 </div>
-                <div class="text-box">
-                  <h4>윤진원</h4>
-                  <h5 data-font="satoshi">Yoon JinWon</h5>
-                  <span data-font="satoshi">1998.3.13</span>
+                <div class="text-box" data-gsap="drag" data-gsap="slide-up">
+                  <h4 data-gsap="slide-up">윤진원</h4>
+                  <h5 data-font="satoshi" data-gsap="slide-up">Yoon JinWon</h5>
+                  <span data-font="satoshi" data-gsap="slide-up">1998.3.13</span>
                 </div>
               </div>
               <div class="box box-2" data-font="satoshi">
-                <dl class="grid-box edu">
+                <dl class="grid-box edu" data-gsap="slide-up">
                   <dt>Education</dt>
                   <dd>대전 한밭대학교 시각디자인</dd>
                   <dd class="date">2017 - 2023</dd>
                   <dd>대전 보문고등학교</dd>
                   <dd class="date">2014 - 2017</dd>
                 </dl>
-                <dl class="grid-box exp">
+                <dl class="grid-box exp" data-gsap="slide-up">
                   <dt>Experience</dt>
                   <dd>SBS아카데미 UI.UX 반응형 웹퍼블리셔 국비 과정</dd>
                   <dd class="date">2025</dd>
                   <dd>호텔 오노마 식음 연회팀</dd>
                   <dd class="date">2024 - 2025</dd>
                 </dl>
-                <dl class="grid-box cert">
+                <dl class="grid-box cert" data-gsap="slide-up">
                   <dt>Certification</dt>
                   <dd>웹디자인개발기능사</dd>
                   <dd class="date">2025</dd>
@@ -185,7 +185,7 @@
                   <dd>운전면허증 2종 보통</dd>
                   <dd class="date">2022</dd>
                 </dl>
-                <dl class="grid-box skill">
+                <dl class="grid-box skill" data-gsap="slide-up">
                   <dt>Skills</dt>
                   <dd>Photoshop</dd>
                   <dd>Illrustrator</dd>
@@ -205,7 +205,7 @@
         <section class="sec-works" id="works">
           <div class="content-wrap">
             <div class="section-header">
-              <h2>Works</h2>
+              <h2 data-gsap="text-wave">Works</h2>
               <span>(<span class="work-numb">0</span>)</span>
             </div>
             <ul class="work-list-container">
@@ -242,14 +242,14 @@
         <footer>
           <div class="content-wrap">
             <div class="section-header">
-              <h2>Contact</h2>
-              <div class="grid-box" data-font="satoshi">
+              <h2 data-gsap="text-wave">Contact</h2>
+              <div class="grid-box" data-font="satoshi" data-gsap="slide-up">
                 <div class="cell">Cell</div>
                 <div class="cell">010.2987.0536</div>
                 <div class="mail">Mail</div>
-                <div class="mail">yjw1555@gmail.com</div>
-                <div class="sns"><a href="https://github.com/R00neyj" target="_blank">Github</a></div>
-                <div class="sns"><a href="https://www.instagram.com/r0_0neyj/" target="_blank"> Instagram</a></div>
+                <div class="mail btn"><a href="mailto:yjw1555@gmail.com" target="_blank">yjw1555@gmail.com</a></div>
+                <div class="sns btn"><a href="https://github.com/R00neyj" target="_blank">Github</a></div>
+                <div class="sns btn"><a href="https://www.instagram.com/r0_0neyj/" target="_blank">Instagram</a></div>
               </div>
             </div>
             <p class="copyright" data-font="commitMono">© Copyright 2025 R00neyj. All rights reserved.</p>

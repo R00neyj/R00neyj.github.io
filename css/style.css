@@ -56,6 +56,7 @@
 
 section {
   position: relative;
+  z-index: 1;
   > h1 {
     display: none;
   }
@@ -68,7 +69,11 @@ section {
   font-weight: 700;
   border-bottom: 1px solid var(--black);
 
-  span {
+  h2 > span {
+    display: inline-block;
+  }
+
+  > span {
     font-size: 12rem;
   }
 }
@@ -276,6 +281,7 @@ header nav ul {
   justify-content: center;
   align-items: center;
   text-align: center;
+
   .img-box img {
     width: 29rem;
   }
@@ -503,7 +509,7 @@ footer .grid-box {
   font-size: var(--font-Body-L);
   font-weight: 400;
 
-  .sns {
+  .btn {
     transition: all 0.6s var(--easeOut);
     a {
       transition: inherit;
@@ -526,8 +532,17 @@ footer .grid-box {
       }
     }
   }
+  .btn:nth-child(4) {
+    a:hover {
+      color: #e92b0f;
 
-  .sns:nth-child(5) {
+      &::after {
+        background-color: #fff;
+      }
+    }
+  }
+
+  .btn:nth-child(5) {
     a:hover {
       color: #fff;
 
@@ -536,7 +551,7 @@ footer .grid-box {
       }
     }
   }
-  .sns:nth-child(6) {
+  .btn:nth-child(6) {
     a:hover {
       color: transparent;
       background: linear-gradient(to right, #f7b700, #e2476c, #5e2fc2);

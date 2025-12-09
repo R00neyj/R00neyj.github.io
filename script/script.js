@@ -50,12 +50,54 @@ const gsapAni__init = () => {
   const workListItem = document.querySelectorAll(".work-list-item");
   const img = workListItem[0].querySelector("img");
 
+  header__sticky();
+  gsapScrollTo();
+  gsapAni__drag(".sec-hero");
+  gsapAni__drag(".sec-about");
+  gsapAni__textWave();
+  gsapAni__Slide();
   img.onload = () => {
-    header__sticky();
-    gsapScrollTo();
-    gsapAni__Draggable();
     gsapAni__works();
   };
+};
+
+const gsapAni__Slide = () => {
+  const target = document.querySelectorAll(`[data-gsap="slide-up"]`);
+
+  target.forEach((el) => {
+    const slideUpTl = gsap.timeline();
+    slideUpTl.from(el, { y: "50%", opacity: 0, duration: 0.6, ease: "power2.out" });
+
+    gsapAni__ST(el, slideUpTl);
+  });
+};
+
+const gsapAni__ST = (trigger, timeline) => {
+  ScrollTrigger.create({
+    trigger: trigger,
+    animation: timeline,
+    start: "top 90%",
+    toggleActions: "play none none reverse",
+  });
+};
+
+const gsapAni__textWave = () => {
+  const target = document.querySelectorAll(`[data-gsap="text-wave"]`);
+
+  target.forEach((el) => {
+    const currentText = el.textContent;
+    let newText = "";
+    currentText.split("").forEach((char) => {
+      newText += `<span>${char}</span>`;
+    });
+    el.innerHTML = "";
+    el.innerHTML = newText;
+
+    const waveTl = gsap.timeline();
+    waveTl.from(el.children, { y: 100, opacity: 0, duration: 1, stagger: 0.05, ease: "back.out(2)" });
+
+    gsapAni__ST(el, waveTl);
+  });
 };
 
 const gsapAni__works = () => {
@@ -139,13 +181,17 @@ const mouseReticle = () => {
     });
   });
 };
-const gsapAni__Draggable = () => {
-  const dragBounds = document.querySelector(".sec-hero");
-  const dragEl = dragBounds.querySelectorAll(".sec-hero .svg-box svg, .sec-hero .text-box span");
+const gsapAni__drag = (boundEl) => {
+  const dragBounds = document.querySelector(boundEl);
+  const dragEl = dragBounds.querySelectorAll(`[data-gsap="drag"]`);
+
+  dragEl.forEach((el) => {
+    el.style.willChange = "transform";
+  });
 
   let rotateDegBefore = [-2, 2];
   let rotateDegAfter = [-1, 0, 1];
-  let ease = "power1.out";
+  let ease = "power2.out";
   let duration = 0.3;
 
   Draggable.create(dragEl, {
@@ -154,11 +200,18 @@ const gsapAni__Draggable = () => {
   });
 
   dragEl.forEach((el) => {
+    el.addEventListener("pointerenter", () => {
+      gsap.to(el, { rotate: gsap.utils.random(rotateDegBefore), ease: ease, duration: duration });
+    });
+    el.addEventListener("pointerleave", () => {
+      gsap.to(el, { rotate: gsap.utils.random(rotateDegAfter), ease: ease, duration: duration });
+    });
+
     el.addEventListener("pointerdown", () => {
-      gsap.to(el, { scale: 1.03, rotate: gsap.utils.random(rotateDegBefore), ease: ease, duration: duration });
+      gsap.to(el, { scale: 1.03, ease: ease, duration: duration });
     });
     el.addEventListener("pointerup", () => {
-      gsap.to(el, { scale: 1, rotate: gsap.utils.random(rotateDegAfter), ease: ease, duration: duration });
+      gsap.to(el, { scale: 1, ease: ease, duration: duration });
     });
   });
 };
@@ -244,7 +297,7 @@ async function getData__init() {
 }
 
 const loading__init = () => {
-  const spanAll = document.querySelectorAll(`.loading-page [data-split="true"]`);
+  const spanAll = document.querySelectorAll(`.loading-page span[data-split="true"]`);
   const body = document.querySelector("body");
   const loadingScreen = document.querySelector(".loading-page");
   body.style.overflow = "hidden";
@@ -267,10 +320,10 @@ const loading__init = () => {
     el.innerHTML = "";
     el.innerHTML = newText;
 
-    tl.from(el.children, { opacity: 0, duration: 0.03, stagger: 0.03, ease: "none" });
+    tl.from(el.children, { opacity: 0, duration: 0.02, stagger: 0.02, ease: "none" });
     tl.to({}, { duration: 0.1 });
   });
-  tl.to({}, { duration: 0.4 });
+  tl.to(".loading-page .init .dot", { opacity: 0, duration: 0.1, stagger: -0.2, yoyo: true, repeat: 2 });
 
   skeepBtn.addEventListener("keyup", (e) => {
     if (e.key === "Enter") tl.pause(), loadingFinish();
@@ -296,13 +349,13 @@ function loadingFinish() {
   const header = document.querySelector("header");
   targetArr.push(header);
 
-  console.log(targetArr);
-
   tl.from(targetArr, { stagger: 0.2, opacity: 0, y: 30, duration: 1, ease: "power2.out" });
 }
 
-getData__init();
-loading__init();
+document.addEventListener("DOMContentLoaded", () => {
+  getData__init();
+  loading__init();
+});
 
 window.addEventListener("resize", () => {
   marquee__init();
