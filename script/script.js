@@ -7,6 +7,22 @@ const getIsMobile = () => {
 };
 getIsMobile();
 
+const ScrollSmoother__init = () => {
+  let smoother;
+  gsap.matchMedia().add("(min-width: 769px)", () => {
+    smoother = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 1,
+      effects: true,
+    });
+
+    return () => {
+      if (smoother) smoother.kill();
+    };
+  });
+};
+
 let isMarqueeCloned = false;
 const marquee__init = () => {
   const marqueeWrap = document.querySelector(".marquee-wrap");
@@ -145,15 +161,13 @@ const gsapAni__works = () => {
 
   const tl = gsap.timeline();
   let initialH = "10rem";
-  let originH = "65rem";
+  let originH = workListItem[0].offsetHeight;
   let headerH = document.querySelector("header").offsetHeight;
   let masterDuration = 0.5;
 
   tl.to(workListArr, { stagger: masterDuration, height: initialH, duration: masterDuration, ease: "none" });
   tl.to(workListArr, { stagger: masterDuration, height: 0, opacity: 0.5, duration: masterDuration, ease: "none" }, `<${100 / workListArr.length}%`);
   tl.to(workListArr, { stagger: masterDuration, padding: 0, opacity: 0, duration: masterDuration, ease: "none" }, `<${100 / workListArr.length}%`);
-
-  originH = workListItem[0].offsetHeight;
 
   ScrollTrigger.create({
     trigger: workListContainer,
@@ -324,12 +338,8 @@ async function getData__init() {
     const worksComp = createWorksComponent(el);
     workContainer.insertAdjacentHTML("beforeend", worksComp);
   });
-  ScrollSmoother.create({
-    speed: 1,
-    smooth: 0.5,
-    effects: true,
-  });
 
+  ScrollSmoother__init();
   getWorkQTY();
   gsapAni__init();
 }
@@ -397,8 +407,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // headerST.kill()
 let resizeTimer;
-
+let currentWidth = window.innerWidth;
 window.addEventListener("resize", () => {
+  if (window.innerWidth === currentWidth) return;
+
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     marquee__init();
