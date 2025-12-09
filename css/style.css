@@ -53,6 +53,7 @@
   max-width: min(2560px, 184rem);
   margin: 0 auto;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 section {

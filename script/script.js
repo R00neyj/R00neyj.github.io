@@ -98,7 +98,7 @@ const gsapAni__Slide = () => {
     const slideUpTl = gsap.timeline();
     slideUpTl.from(el, { y: "50%", opacity: 0, duration: 0.6, ease: "power2.out" });
 
-    gsapAni__ST(el, slideUpTl);
+    gsapAni__ST(el, slideUpTl, "none");
   });
 };
 
@@ -117,16 +117,16 @@ const gsapAni__textWave = () => {
     const waveTl = gsap.timeline();
     waveTl.from(el.children, { y: 100, opacity: 0, duration: 1, stagger: 0.05, ease: "back.out(2)" });
 
-    gsapAni__ST(el, waveTl);
+    gsapAni__ST(el, waveTl, "reverse");
   });
 };
 
-const gsapAni__ST = (trigger, timeline) => {
+const gsapAni__ST = (trigger, timeline, reverse) => {
   ScrollTrigger.create({
     trigger: trigger,
     animation: timeline,
     start: "top 90%",
-    toggleActions: "play none none reverse",
+    toggleActions: `play none none ${reverse}`,
   });
 };
 
@@ -173,40 +173,24 @@ const gsapAni__works = () => {
 const gsapScrollTo = () => {
   const header = document.querySelector("header");
   const toAbout = document.querySelectorAll(".toAbout");
-  toAbout.forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      gsap.to(window, { duration: 0.5, scrollTo: { y: "#about", offsetY: 0 } });
-      header.classList.remove("mobile-active");
-    });
-  });
-
   const toWorks = document.querySelectorAll(".toWorks");
-  toWorks.forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      gsap.to(window, { duration: 0.5, scrollTo: { y: "#works", offsetY: 0 } });
-      header.classList.remove("mobile-active");
-    });
-  });
-
   const toContact = document.querySelectorAll(".toContact");
-  toContact.forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      gsap.to(window, { duration: 0.5, scrollTo: { y: "#contact", offsetY: 0 } });
-      header.classList.remove("mobile-active");
-    });
-  });
-
   const toTop = document.querySelectorAll(".toTop");
-  toTop.forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      gsap.to(window, { duration: 0.5, scrollTo: { y: 0, offsetY: 0 } });
-      header.classList.remove("mobile-active");
+
+  const letsGo = (trigger, target) => {
+    trigger.forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        gsap.to(window, { duration: 0.5, scrollTo: { y: target, offsetY: 0 } });
+        header.classList.remove("mobile-active");
+      });
     });
-  });
+  };
+
+  letsGo(toAbout, "#about");
+  letsGo(toWorks, "#works");
+  letsGo(toContact, "#contact");
+  letsGo(toTop, "0");
 };
 
 const mouseReticle = () => {
