@@ -46,12 +46,12 @@
       <div id="smooth-content">
         <header data-speed="0">
           <div class="inner">
-            <nav>
+            <nav class="pc-nav">
               <ul>
                 <li>
-                  <a href="#" class="skew">Portfolio<span class="date year">2025</span></a>
+                  <a href="#" class="skew toTop">Portfolio<span class="date year">2025</span></a>
                 </li>
-                <li>
+                <li class="pc">
                   <a href="#" class="toAbout">
                     About
                     <div class="svg-box">
@@ -61,7 +61,7 @@
                     </div>
                   </a>
                 </li>
-                <li>
+                <li class="pc">
                   <a href="#" class="toWorks">
                     Works
                     <div class="svg-box">
@@ -71,6 +71,57 @@
                     </div>
                   </a>
                 </li>
+                <li class="pc">
+                  <a href="#" class="toContact">
+                    Contact
+                    <div class="svg-box">
+                      <svg width="2.4rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6H18V18L6 6Z" fill="currentColor" />
+                      </svg>
+                    </div>
+                  </a>
+                </li>
+                <li class="mob-nav-open mob-nav-btn"><span class="line"></span><span class="line line2"></span></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="mob-header">
+            <nav class="mob-nav">
+              <ul>
+                <li>
+                  <a href="#" class="skew toTop">Portfolio<span class="date year">2025</span></a>
+                </li>
+                <li class="">
+                  <a href="#" class="toAbout">
+                    About
+                    <div class="svg-box">
+                      <svg width="2.4rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6H18V18L6 6Z" fill="currentColor" />
+                      </svg>
+                    </div>
+                  </a>
+                </li>
+                <li class="">
+                  <a href="#" class="toWorks">
+                    Works
+                    <div class="svg-box">
+                      <svg width="2.4rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6H18V18L6 6Z" fill="currentColor" />
+                      </svg>
+                    </div>
+                  </a>
+                </li>
+                <li class="">
+                  <a href="#" class="toContact">
+                    Contact
+                    <div class="svg-box">
+                      <svg width="2.4rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6H18V18L6 6Z" fill="currentColor" />
+                      </svg>
+                    </div>
+                  </a>
+                </li>
+                <li class="mob-nav-close mob-nav-btn"><span class="line"></span><span class="line line2"></span></li>
               </ul>
             </nav>
           </div>
@@ -79,7 +130,7 @@
           <h1>hero section</h1>
           <div class="content-wrap">
             <div class="svg-box logo-svg">
-              <svg data-gsap="drag" width="1440" height="354" viewBox="0 0 1440 354" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg data-gsap="drag" width="144rem" viewBox="0 0 1440 354" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="1344.57" height="366" transform="matrix(1 0 -0.258819 0.965926 94.7285 0)" fill="#222222" />
                 <rect width="1320.57" height="342" transform="matrix(1 0 -0.258819 0.965926 103.623 11.5918)" fill="#EEEEEE" />
                 <rect width="1312.57" height="334" transform="matrix(1 0 -0.258819 0.965926 106.588 15.4551)" fill="#222222" />
@@ -239,7 +290,7 @@
           </div>
         </section>
 
-        <footer>
+        <footer id="contact">
           <div class="content-wrap">
             <div class="section-header">
               <h2 data-gsap="text-wave">Contact</h2>

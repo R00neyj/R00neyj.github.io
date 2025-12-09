@@ -1,5 +1,12 @@
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin, Draggable, InertiaPlugin);
 
+let isMobile;
+const getIsMobile = () => {
+  if (window.innerWidth <= 768) isMobile = true;
+  else isMobile = false;
+};
+getIsMobile();
+
 let isMarqueeCloned = false;
 const marquee__init = () => {
   const marqueeWrap = document.querySelector(".marquee-wrap");
@@ -20,13 +27,11 @@ const marquee__init = () => {
   setMarqueeWidth();
 };
 
+let headerST;
 const header__sticky = () => {
   const header = document.querySelector("header");
 
-  const about = document.querySelector(".sec-about");
-  const ToAbout = document.querySelector(".toAbout");
-
-  ScrollTrigger.create({
+  headerST = ScrollTrigger.create({
     trigger: header,
     pin: true,
     pinSpacing: false,
@@ -36,6 +41,9 @@ const header__sticky = () => {
     onLeaveBack: () => header.classList.remove("active"),
   });
 
+  const about = document.querySelector(".sec-about");
+  const ToAbout = document.querySelector(".toAbout");
+
   ScrollTrigger.create({
     trigger: about,
     start: "top top",
@@ -43,6 +51,28 @@ const header__sticky = () => {
     onEnterBack: () => ToAbout.classList.add("active"),
     onLeave: () => ToAbout.classList.remove("active"),
     onLeaveBack: () => ToAbout.classList.remove("active"),
+  });
+
+  const contact = document.querySelector("#contact");
+  const toContact = document.querySelector(".toContact");
+
+  ScrollTrigger.create({
+    trigger: contact,
+    start: "top bottom",
+    onEnter: () => toContact.classList.add("active"),
+    onEnterBack: () => toContact.classList.add("active"),
+    onLeave: () => toContact.classList.remove("active"),
+    onLeaveBack: () => toContact.classList.remove("active"),
+  });
+
+  const mobNavClose = document.querySelector(".mob-nav-close");
+  const mobNavOpen = document.querySelector(".mob-nav-open");
+
+  mobNavOpen.addEventListener("click", () => {
+    header.classList.add("mobile-active");
+  });
+  mobNavClose.addEventListener("click", () => {
+    header.classList.remove("mobile-active");
   });
 };
 
@@ -72,15 +102,6 @@ const gsapAni__Slide = () => {
   });
 };
 
-const gsapAni__ST = (trigger, timeline) => {
-  ScrollTrigger.create({
-    trigger: trigger,
-    animation: timeline,
-    start: "top 90%",
-    toggleActions: "play none none reverse",
-  });
-};
-
 const gsapAni__textWave = () => {
   const target = document.querySelectorAll(`[data-gsap="text-wave"]`);
 
@@ -100,6 +121,15 @@ const gsapAni__textWave = () => {
   });
 };
 
+const gsapAni__ST = (trigger, timeline) => {
+  ScrollTrigger.create({
+    trigger: trigger,
+    animation: timeline,
+    start: "top 90%",
+    toggleActions: "play none none reverse",
+  });
+};
+
 const gsapAni__works = () => {
   const workListContainer = document.querySelector(".work-list-container");
   const workListItem = document.querySelectorAll(".work-list-item");
@@ -115,13 +145,13 @@ const gsapAni__works = () => {
 
   const tl = gsap.timeline();
   let initialH = "10rem";
-  let originH;
+  let originH = "65rem";
   let headerH = document.querySelector("header").offsetHeight;
   let masterDuration = 0.5;
 
   tl.to(workListArr, { stagger: masterDuration, height: initialH, duration: masterDuration, ease: "none" });
   tl.to(workListArr, { stagger: masterDuration, height: 0, opacity: 0.5, duration: masterDuration, ease: "none" }, `<${100 / workListArr.length}%`);
-  tl.to(workListArr, { stagger: masterDuration, padding: 0, duration: masterDuration, ease: "none" }, `<${100 / workListArr.length}%`);
+  tl.to(workListArr, { stagger: masterDuration, padding: 0, opacity: 0, duration: masterDuration, ease: "none" }, `<${100 / workListArr.length}%`);
 
   originH = workListItem[0].offsetHeight;
 
@@ -129,7 +159,7 @@ const gsapAni__works = () => {
     trigger: workListContainer,
     pin: true,
     start: `=-${headerH} top`,
-    end: `+=${originH * 5}`,
+    end: `+=${originH * workListArr.length}`,
     animation: tl,
     scrub: 0.5,
 
@@ -141,16 +171,41 @@ const gsapAni__works = () => {
 };
 
 const gsapScrollTo = () => {
-  const toAbout = document.querySelector(".toAbout");
-  toAbout.addEventListener("click", (e) => {
-    e.preventDefault();
-    gsap.to(window, { duration: 0.5, scrollTo: { y: "#about", offsetY: 0 } });
+  const header = document.querySelector("header");
+  const toAbout = document.querySelectorAll(".toAbout");
+  toAbout.forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      gsap.to(window, { duration: 0.5, scrollTo: { y: "#about", offsetY: 0 } });
+      header.classList.remove("mobile-active");
+    });
   });
 
-  const toWorks = document.querySelector(".toWorks");
-  toWorks.addEventListener("click", (e) => {
-    e.preventDefault();
-    gsap.to(window, { duration: 0.5, scrollTo: { y: "#works", offsetY: 0 } });
+  const toWorks = document.querySelectorAll(".toWorks");
+  toWorks.forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      gsap.to(window, { duration: 0.5, scrollTo: { y: "#works", offsetY: 0 } });
+      header.classList.remove("mobile-active");
+    });
+  });
+
+  const toContact = document.querySelectorAll(".toContact");
+  toContact.forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      gsap.to(window, { duration: 0.5, scrollTo: { y: "#contact", offsetY: 0 } });
+      header.classList.remove("mobile-active");
+    });
+  });
+
+  const toTop = document.querySelectorAll(".toTop");
+  toTop.forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      gsap.to(window, { duration: 0.5, scrollTo: { y: 0, offsetY: 0 } });
+      header.classList.remove("mobile-active");
+    });
   });
 };
 
@@ -285,10 +340,9 @@ async function getData__init() {
     const worksComp = createWorksComponent(el);
     workContainer.insertAdjacentHTML("beforeend", worksComp);
   });
-
   ScrollSmoother.create({
-    smooth: 1,
     speed: 1,
+    smooth: 0.5,
     effects: true,
   });
 
@@ -334,7 +388,7 @@ function loadingFinish() {
   marquee__init();
   mouseReticle();
   document.querySelector(".loading-page").classList.remove("active");
-  document.querySelector("body").style.overflow = "auto";
+  document.querySelector("body").style.overflow = "hidden auto";
 
   const tl = gsap.timeline();
 
@@ -357,6 +411,14 @@ document.addEventListener("DOMContentLoaded", () => {
   loading__init();
 });
 
+// headerST.kill()
+let resizeTimer;
+
 window.addEventListener("resize", () => {
-  marquee__init();
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    marquee__init();
+    getIsMobile();
+    ScrollTrigger.refresh();
+  }, 300);
 });
