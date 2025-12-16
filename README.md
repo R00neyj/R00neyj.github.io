@@ -5,7 +5,7 @@
 ### Web Publish/Design Portfolio
 
 HTML <br> 
-SCSS <br>
+CSS <br>
 JS(GSAP) <br>
 
 를 조합하여 구현했습니다.
