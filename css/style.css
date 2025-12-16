@@ -593,7 +593,7 @@ header.mobile-active .mob-header {
   .box-1 {
     flex-shrink: 0;
     width: 100%;
-    max-width: min(50vw, 60rem);
+    max-width: min(90vw, 60rem);
     font-size: var(--font-Body-L);
 
     .label {
