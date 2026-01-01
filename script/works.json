@@ -30,10 +30,21 @@
     "title": "YoungPoong Precision.Ltd",
     "skill": "Figma / Ai / Ps / HTML / CSS / JS",
     "period": "25.10 - 25.11",
-    "desc": "40년의 기술력과 글로벌 생산 거점을 갖춘 영풍정밀, 견고한 신뢰와 혁신적인 기업 이미지에 맞춰 인더스트리얼하게 재해석한 웹 리디자인 입니다",
+    "desc": "영풍정밀의 기술적 정체성을 강화하기 위해 정보 전달력을 개선하고, 산업적 감각의 UI를 통해 기업의 신뢰도와 혁신적 이미지를 투영한 리디자인 프로젝트입니다",
     "roll": "",
     "btns": [{ "text": "Web", "link": "https://r00neyj.github.io/YoungPoongPrecision_redesign/" }],
     "imgSrc": "./images/work_thumbnail_4.webp"
+  },
+  {
+    "id": "3m",
+    "label": "Personal",
+    "title": "3M",
+    "skill": "Figma / Ps / HTML / CSS / JS",
+    "period": "25.12",
+    "desc": "방대한 제품군으로 인한 정보의 불균형을 줄이고, 3M의 다양한 시장 경쟁력과 핵심 솔루션을 직관적인 그리드와 정제된 비주얼 시스템으로 재정립한 리디자인 프로젝트입니다",
+    "roll": "",
+    "btns": [{ "text": "Web", "link": "https://r00neyj.github.io/3M_redesign/" }],
+    "imgSrc": "./images/work_thumbnail_3M.webp"
   },
   {
     "id": "legodt",

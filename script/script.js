@@ -161,7 +161,7 @@ const gsapAni__works = () => {
   const ToWorks = document.querySelector(".toWorks");
 
   const workListArr = Array.from(workListItem);
-  workListArr.splice(4, 1);
+  workListArr.splice(workListArr.length - 1, 1);
 
   workListArr.forEach((el) => {
     el.style.willChange = "height, opacity";
