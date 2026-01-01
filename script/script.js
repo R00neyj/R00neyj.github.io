@@ -93,8 +93,7 @@ const header__sticky = () => {
 };
 
 const gsapAni__init = () => {
-  const workListItem = document.querySelectorAll(".work-list-item");
-  const img = workListItem[0].querySelector("img");
+  const imgs = document.querySelectorAll(".work-list-item img");
 
   header__sticky();
   gsapScrollTo();
@@ -102,8 +101,18 @@ const gsapAni__init = () => {
   gsapAni__drag(".sec-about");
   gsapAni__textWave();
   gsapAni__Slide();
-  img.onload = () => {
-    gsapAni__works();
+
+  let isImgLoaded = 0;
+  imgs.forEach((img) => {
+    img.onload = () => {
+      isImgLoaded++;
+      checkImgLoaded();
+    };
+  });
+
+  const checkImgLoaded = () => {
+    if (isImgLoaded == imgs.length) gsapAni__works();
+    else return;
   };
 };
 
@@ -149,7 +158,6 @@ const gsapAni__ST = (trigger, timeline, reverse) => {
 const gsapAni__works = () => {
   const workListContainer = document.querySelector(".work-list-container");
   const workListItem = document.querySelectorAll(".work-list-item");
-  const img = workListItem[0].querySelector("img");
   const ToWorks = document.querySelector(".toWorks");
 
   const workListArr = Array.from(workListItem);
@@ -161,7 +169,6 @@ const gsapAni__works = () => {
 
   const tl = gsap.timeline();
   let initialH = "10rem";
-  let originH = workListItem[0].offsetHeight;
   let headerH = document.querySelector("header").offsetHeight;
   let masterDuration = 0.5;
 
@@ -173,7 +180,13 @@ const gsapAni__works = () => {
     trigger: workListContainer,
     pin: true,
     start: `=-${headerH} top`,
-    end: `+=${originH * workListArr.length}`,
+    end: () => {
+      let totalHeight = 0;
+      workListItem.forEach((el) => {
+        totalHeight += el.offsetHeight;
+      });
+      return `+=${totalHeight}`;
+    },
     animation: tl,
     scrub: 0.5,
 

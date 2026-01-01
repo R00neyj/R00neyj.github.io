@@ -112,6 +112,15 @@ section {
   display: flex;
 }
 
+.hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  clip-path: inset(100%);
+  width: 1px;
+  height: 1px;
+}
+
 /* general */
 
 ::selection {
@@ -363,6 +372,10 @@ header.mobile-active .mob-header {
     line-height: 1;
 
     @media (max-width: 768px) {
+      width: fit-content;
+    }
+
+    span {
       width: fit-content;
     }
 
