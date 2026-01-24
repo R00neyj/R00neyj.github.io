@@ -391,7 +391,11 @@ header.mobile-active .mob-header {
     inset: 0 0 0 0;
     z-index: -1;
     height: calc(100vh - 6rem);
-    background-image: linear-gradient(var(--darkGray) 0.1rem, transparent 0.1rem), linear-gradient(90deg, var(--darkGray) 0.1rem, transparent 0.1rem);
+    background-image: linear-gradient(
+        var(--darkGray) 0.1rem,
+        transparent 0.1rem
+      ),
+      linear-gradient(90deg, var(--darkGray) 0.1rem, transparent 0.1rem);
     background-size: 4.2rem 4.2rem;
     opacity: 0.1;
     margin: 3rem;
@@ -526,7 +530,31 @@ header.mobile-active .mob-header {
 
 .sec-about .grid-box.exp {
   dd:nth-child(2) {
-    grid-area: 2/1 /2/4;
+    grid-area: 2 / 1 / 2 / 3;
+  }
+  dd:nth-child(3) {
+    grid-area: 2 / 4;
+  }
+  dd:nth-child(4) {
+    grid-area: 3 / 1 / 3 / 4;
+  }
+  dd:nth-child(5) {
+    grid-area: 3 / 4;
+  }
+  dd:nth-child(6) {
+    grid-area: 4 / 1 / 4 / 4;
+  }
+  dd:nth-child(8) {
+    grid-area: 5 / 1 / 5 / 5;
+  }
+  dd:nth-child(9) {
+    grid-area: 5 / 5;
+  }
+  dd:nth-child(10) {
+    grid-area: 6 / 1 / 6 / 3;
+  }
+  dd:nth-child(11) {
+    grid-area: 6 / 4 / 6 / 6;
   }
 }
 .sec-about .grid-box.skill {
@@ -589,6 +617,7 @@ header.mobile-active .mob-header {
   border-bottom: 0.1rem solid var(--black);
   overflow: hidden;
   box-sizing: border-box;
+  width: 100%;
 
   .inner {
     display: flex;
@@ -596,6 +625,7 @@ header.mobile-active .mob-header {
     height: 100%;
     overflow: hidden;
     padding-inline: 2rem;
+    box-sizing: inherit;
 
     @media (max-width: 768px) {
       flex-direction: column-reverse;
@@ -664,11 +694,12 @@ header.mobile-active .mob-header {
     flex-grow: 1;
     overflow: hidden;
     border-radius: 1.6rem;
-    height: 100%;
+    height: fit-content;
 
     .img-box {
-      height: 100%;
-      max-height: 60rem;
+      /* height: 100%; */
+      /* max-height: 60rem; */
+      height: min(60rem, 40svh);
       align-items: start;
     }
 
@@ -817,8 +848,16 @@ footer .copyright {
   border-radius: 99rem;
   pointer-events: none;
   backdrop-filter: invert(1);
-  -webkit-mask: radial-gradient(circle closest-side, transparent calc(100% - 0.2rem), black calc(100% - 0.2rem));
-  mask: radial-gradient(circle closest-side, transparent calc(100% - 0.2rem), black calc(100% - 0.2rem));
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent calc(100% - 0.2rem),
+    black calc(100% - 0.2rem)
+  );
+  mask: radial-gradient(
+    circle closest-side,
+    transparent calc(100% - 0.2rem),
+    black calc(100% - 0.2rem)
+  );
   z-index: 98;
   box-sizing: border-box;
   opacity: 0.5;
