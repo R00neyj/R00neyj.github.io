@@ -695,10 +695,12 @@ header.mobile-active .mob-header {
     height: fit-content;
 
     .img-box {
-      /* height: 100%; */
-      /* max-height: 60rem; */
-      height: min(60rem, 40svh);
+      height: 60rem;
       align-items: start;
+
+      @media (max-width: 768px) {
+      height: 40svh;
+      }
     }
 
     img {
