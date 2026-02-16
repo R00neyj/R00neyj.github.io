@@ -261,27 +261,32 @@ const mouseReticle = () => {
     });
   });
 };
-const gsapAni__drag = (boundEl, randomRotate = true) => {
+const gsapAni__drag = (boundEl, randomRotate = true, triggerSelector) => {
   const dragBounds = typeof boundEl == "string" ? document.querySelectorAll(boundEl) : [boundEl];
 
-  dragBounds.forEach((el) => {
-    const dragEls = el.querySelectorAll(`[data-gsap="drag"]`);
+  dragBounds.forEach((boundEl) => {
+    const dragEls = boundEl.querySelectorAll(`[data-gsap="drag"]`);
 
-    dragEls.forEach((el) => {
-      el.style.willChange = "transform";
+    dragEls.forEach((dragEl) => {
+      dragEl.style.willChange = "transform";
+
+      let triggerEl = typeof triggerSelector == "string" ? boundEl.querySelector(triggerSelector) : triggerSelector;
+
+      let finalTrigger = triggerEl ? triggerEl : dragEl;
+
+      Draggable.create(dragEl, {
+        trigger: finalTrigger,
+        bounds: boundEl,
+        inertia: true,
+        dragClickables: true,
+        minimumMovement: 5,
+      });
     });
 
     let rotateDegBefore = [-2, 2];
     let rotateDegAfter = [-1, 0, 1];
     let ease = "power2.out";
     let duration = 0.3;
-
-    Draggable.create(dragEls, {
-      bounds: el,
-      inertia: true,
-      dragClickables: true,
-      minimumMovement: 5,
-    });
 
     if (randomRotate) {
       dragEls.forEach((el) => {
@@ -488,7 +493,7 @@ class projectCard extends HTMLElement {
 
       requestAnimationFrame(() => {
         const cardBound = this.querySelector(".card");
-        if (cardBound) gsapAni__drag(cardBound, false);
+        if (cardBound) gsapAni__drag(cardBound, false, ".body-head");
 
         const closeBtn = this.querySelector(".close");
         const cardBody = this.querySelector(".card__body");
