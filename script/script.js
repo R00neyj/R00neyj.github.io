@@ -278,7 +278,8 @@ const gsapAni__drag = (boundEl, randomRotate = true, triggerSelector) => {
         trigger: finalTrigger,
         bounds: boundEl,
         inertia: true,
-        dragClickables: true,
+        dragClickables: false,
+        allowEventDefault: true,
         minimumMovement: 5,
       });
     });
