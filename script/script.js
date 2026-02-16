@@ -81,6 +81,18 @@ const header__sticky = () => {
     onLeaveBack: () => toContact.classList.remove("active"),
   });
 
+  const project = document.querySelector("#project");
+  const toProject = document.querySelector(".toProject");
+
+  ScrollTrigger.create({
+    trigger: project,
+    start: "top bottom",
+    onEnter: () => toProject.classList.add("active"),
+    onEnterBack: () => toProject.classList.add("active"),
+    onLeave: () => toProject.classList.remove("active"),
+    onLeaveBack: () => toProject.classList.remove("active"),
+  });
+
   const mobNavClose = document.querySelector(".mob-nav-close");
   const mobNavOpen = document.querySelector(".mob-nav-open");
 
@@ -249,44 +261,54 @@ const mouseReticle = () => {
     });
   });
 };
-const gsapAni__drag = (boundEl) => {
-  const dragBounds = document.querySelector(boundEl);
-  const dragEl = dragBounds.querySelectorAll(`[data-gsap="drag"]`);
+const gsapAni__drag = (boundEl, randomRotate = true) => {
+  const dragBounds = typeof boundEl == "string" ? document.querySelectorAll(boundEl) : [boundEl];
 
-  dragEl.forEach((el) => {
-    el.style.willChange = "transform";
-  });
+  dragBounds.forEach((el) => {
+    const dragEls = el.querySelectorAll(`[data-gsap="drag"]`);
 
-  let rotateDegBefore = [-2, 2];
-  let rotateDegAfter = [-1, 0, 1];
-  let ease = "power2.out";
-  let duration = 0.3;
-
-  Draggable.create(dragEl, {
-    bounds: dragBounds,
-    inertia: true,
-  });
-
-  dragEl.forEach((el) => {
-    el.addEventListener("pointerenter", () => {
-      gsap.to(el, { rotate: gsap.utils.random(rotateDegBefore), ease: ease, duration: duration });
-    });
-    el.addEventListener("pointerleave", () => {
-      gsap.to(el, { rotate: gsap.utils.random(rotateDegAfter), ease: ease, duration: duration });
+    dragEls.forEach((el) => {
+      el.style.willChange = "transform";
     });
 
-    el.addEventListener("pointerdown", () => {
-      gsap.to(el, { scale: 1.03, ease: ease, duration: duration });
+    let rotateDegBefore = [-2, 2];
+    let rotateDegAfter = [-1, 0, 1];
+    let ease = "power2.out";
+    let duration = 0.3;
+
+    Draggable.create(dragEls, {
+      bounds: el,
+      inertia: true,
     });
-    el.addEventListener("pointerup", () => {
-      gsap.to(el, { scale: 1, ease: ease, duration: duration });
-    });
+
+    if (randomRotate) {
+      dragEls.forEach((el) => {
+        el.addEventListener("pointerenter", () => {
+          gsap.to(el, { rotate: gsap.utils.random(rotateDegBefore), ease: ease, duration: duration });
+        });
+        el.addEventListener("pointerleave", () => {
+          gsap.to(el, { rotate: gsap.utils.random(rotateDegAfter), ease: ease, duration: duration });
+        });
+        el.addEventListener("pointerdown", () => {
+          gsap.to(el, { scale: 1.03, ease: ease, duration: duration });
+        });
+        el.addEventListener("pointerup", () => {
+          gsap.to(el, { scale: 1, ease: ease, duration: duration });
+        });
+      });
+    }
   });
 };
 
-const getWorkQTY = () => {
-  const displayWorkQTY = document.querySelector(".sec-works .work-numb");
-  const WorkListAll = document.querySelectorAll(".work-list-item");
+/**
+ * 카운터함수
+ * @param {string} counter
+ * @param {string} listItem
+ * @param {string} triggerEl
+ */
+const counterQTY = (counter, listItem, triggerEl) => {
+  const displayWorkQTY = document.querySelector(counter);
+  const WorkListAll = document.querySelectorAll(listItem);
   displayWorkQTY.setAttribute("data-counter", WorkListAll.length);
 
   const tl = gsap.timeline();
@@ -298,7 +320,7 @@ const getWorkQTY = () => {
   });
 
   ScrollTrigger.create({
-    trigger: ".sec-works",
+    trigger: triggerEl,
     animation: tl,
     toggleActions: "play none none none",
   });
@@ -355,7 +377,8 @@ async function getData__init() {
   });
 
   ScrollSmoother__init();
-  getWorkQTY();
+  counterQTY(".work-numb", ".work-list-item", ".sec-works");
+  counterQTY(".project-numb", "project-card", ".sec-project");
   gsapAni__init();
 }
 
@@ -367,6 +390,10 @@ const loading__init = () => {
   loadingScreen.classList.add("active");
 
   const skipBtn = document.querySelector("#loading_skip");
+
+  loadingScreen.addEventListener("click", () => {
+    skipBtn.focus();
+  });
 
   let tl = gsap.timeline({
     onComplete: loadingFinish,
@@ -420,23 +447,31 @@ class projectCard extends HTMLElement {
   connectedCallback() {
     const imgSrc = this.getAttribute("img-src") || "";
     const linkUrl = this.getAttribute("link-url") || "#";
-    const title = this.querySelector(".title").innerHTML || "";
-    const desc = this.querySelector(".desc").innerHTML || "";
-    const spec = this.querySelector(".spec").innerHTML || "";
-    const period = this.querySelector(".period").innerHTML || "";
+    const textColor = this.dataset?.color || "#fff";
+    const title = this.querySelector(".title")?.innerHTML || "Title";
+    const desc = this.querySelector(".desc")?.innerHTML || "Dsecriotion";
+    const spec = this.querySelector(".spec")?.innerHTML || "Specification";
+    const period = this.querySelector(".period")?.innerHTML || "Period";
+    const BtnName = this.querySelector(".btn-name")?.innerHTML || "Github";
 
-    this.innerHTML = `
-     <div class="card">
+    const img = new Image();
+    img.src = imgSrc;
+    img.onload = () => {
+      this.innerHTML = `
+     <div class="card" style="--card-text-color:${textColor};">
         <div class="card__bg img-box" >
-          <img src="${imgSrc}" loading="lazy" alt="" data-speed="0.1" />
+          <img src="${imgSrc}" loading="lazy" width="${img.naturalWidth}" height="${img.naturalHeight}" alt="" data-speed="0.1" />
         </div>
-        <div class="inner">
+        <div class="inner" data-speed="0.001">
           <div class="card__head">
-            <h2 class="title">
+           </div>
+          <div class="card__body" data-gsap="drag">
+            <div class="body-head">
               ${title}
-            </h2>
-          </div>
-          <div class="card__body">
+              <div class="close">
+                <span class="line"></span><span class="line"></span>
+              </div>
+            </div>
             <div class="text">
               <p class="desc">
                 ${desc}
@@ -449,11 +484,35 @@ class projectCard extends HTMLElement {
               </p>
             </div>
             <div class="btn-wrap">
-              <div class="btn"><a href="${linkUrl}" target="_blank">Github</a></div>
+              <div class="btn"><a href="${linkUrl}" target="_blank">${BtnName}</a></div>
             </div>
           </div>
         </div>
       </div>`;
+
+      requestAnimationFrame(() => {
+        const cardBound = this.querySelector(".card");
+        if (cardBound) gsapAni__drag(cardBound, false);
+
+        const closeBtn = this.querySelector(".close");
+        const cardBody = this.querySelector(".card__body");
+        let isClosed = false;
+
+        closeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          gsap.to(cardBody, { autoAlpha: 0, duration: 0.2, ease: "power2.out" });
+          isClosed = true;
+        });
+
+        this.addEventListener("click", (e) => {
+          e.stopPropagation();
+          gsap.to(cardBody, { autoAlpha: 1, duration: 0.2, x: 0, y: 0, ease: "power2.out" });
+          // if (isClosed) {
+          //   gsap.to(cardBody, { autoAlpha: 1, duration: 0.2, x: 0, y: 0, ease: "power2.out" });
+          // }
+        });
+      });
+    };
   }
 }
 customElements.define("project-card", projectCard);

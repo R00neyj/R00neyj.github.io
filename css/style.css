@@ -35,8 +35,11 @@
   --black: #222;
   --bg-white: #eee;
   --bg-white80: rgba(230, 230, 230, 0.8);
+  --bg-white40: rgba(230, 230, 230, 0.4);
+  --bg-white20: rgba(230, 230, 230, 0.2);
   --white: #fff;
   --white80: rgba(255, 255, 255, 0.8);
+  --white20: rgba(255, 255, 255, 0.2);
   --gray9: #999;
   --gray4: #444;
   --darkGray: #333;
@@ -151,13 +154,13 @@ header {
   width: 100vw;
   padding: 2.4rem var(--padding-x);
   z-index: 100;
-  background-color: var(--bg-white80);
+  background-color: var(--bg-white40);
   border: 0.1rem solid transparent;
   border-top-color: var(--black);
   border-bottom-color: var(--black);
   box-sizing: border-box;
   will-change: transform;
-  backdrop-filter: blur(1rem);
+  backdrop-filter: blur(20px) saturate(1.4);
 
   @media (max-width: 768px) {
     top: 80vh;
@@ -334,7 +337,7 @@ header .pc-nav ul {
 }
 
 header.mobile-active .mob-header {
-  height: 50vh;
+  height: 62vh;
   border-bottom: 1px solid var(--black);
 
   ul li {
@@ -598,7 +601,7 @@ header.mobile-active .mob-header {
 
 /* sec-wroks */
 .sec-works .content-wrap {
-  padding: var(--padding-y) 0;
+  padding: var(--padding-y) 0 0;
 }
 .sec-works .work-list-container {
   display: flex;
@@ -727,20 +730,30 @@ header.mobile-active .mob-header {
   display: flex;
   flex-direction: column;
   padding-top: 4rem;
+  overflow: hidden;
 }
 
-.card {
+.sec-project .card {
   position: relative;
-  height: 80svh;
-  color: #fff;
+  height: 100svh;
+  color: var(--card-text-color);
+  overflow: hidden;
 
   .inner {
+    position: absolute;
+    inset: 0 0 0 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: end;
     box-sizing: border-box;
     height: 100%;
-    padding: 4rem;
+    padding: 12rem 4rem 8rem;
+
+    @media (max-width: 768px) {
+      padding: 12px 24px 48px;
+      align-items: center;
+    }
   }
 
   .card__bg {
@@ -749,21 +762,96 @@ header.mobile-active .mob-header {
     overflow: hidden;
     position: absolute;
     z-index: -1;
+
+    > img {
+      width: 100%;
+      height: 100%;
+      object-position: left;
+    }
   }
 
-  .card__head {
+  /* .card__head {
     font-size: var(--font-Heading-L);
     font-weight: var(--font-Heading);
-  }
+    line-height: 1;
+    width: fit-content;
+    backdrop-filter: blur(4px);
+    border-radius: 2.4rem;
+    padding: 1.2rem 2.4rem;
+  } */
 
   .card__body {
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 2.4rem;
     font-size: var(--font-Body-L);
     font-weight: var(--font-Body);
+    padding: 6rem 2.4rem 2.4rem;
+    width: 70rem;
+    background-color: #eee;
+    color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.2));
+
+    @media (max-width: 700px) {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .body-head {
+      display: flex;
+      align-items: center;
+      padding-left: 1.2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5rem;
+      background-color: var(--darkGray);
+      line-height: 1;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .close {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 5rem;
+      height: 100%;
+      background: var(--bg-white20);
+      cursor: pointer;
+      transition: all 0.2s var(--easeOut);
+
+      .line {
+        position: absolute;
+        width: 60%;
+        height: 1px;
+        background-color: #fff;
+        transform: rotate(45deg);
+      }
+      .line:nth-of-type(2) {
+        transform: rotate(-45deg);
+      }
+
+      &:hover {
+        background: #e54032;
+      }
+    }
 
     .spec {
       font-family: var(--font-Monoface);
+    }
+    .text {
+      width: fit-content;
+      border-radius: 2.4rem;
+      /* mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%), linear-gradient(to right, transparent, black 5%, black 95%, transparent 100%);
+      mask-composite: intersect; */
     }
   }
 
