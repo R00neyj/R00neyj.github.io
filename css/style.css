@@ -693,7 +693,8 @@ header.mobile-active .mob-header {
     flex-grow: 1;
     overflow: hidden;
     border-radius: 1.6rem;
-    height: fit-content;
+    height: 100%;
+    max-height: 60rem;
 
     .img-box {
       height: 60rem;
