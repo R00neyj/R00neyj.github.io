@@ -836,6 +836,7 @@ header.mobile-active .mob-header {
       justify-content: center;
       align-items: center;
       position: absolute;
+      z-index: 10;
       top: 0;
       right: 0;
       width: 5rem;
@@ -844,6 +845,7 @@ header.mobile-active .mob-header {
       cursor: pointer;
       transition: all 0.2s var(--easeOut);
       touch-action: auto !important;
+      pointer-events: auto !important;
 
       .line {
         position: absolute;
