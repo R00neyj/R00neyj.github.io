@@ -504,9 +504,11 @@ class projectCard extends HTMLElement {
           isClosed = true;
         });
 
-        this.addEventListener("click", (e) => {
-          e.stopPropagation();
-          gsap.to(cardBody, { autoAlpha: 1, duration: 0.2, x: 0, y: 0, ease: "power2.out" });
+        this.querySelector(".card").addEventListener("click", (e) => {
+          if (!e.target.closest(".card__body")) {
+            gsap.to(cardBody, { autoAlpha: 1, duration: 0.2, x: 0, y: 0, ease: "power2.out" });
+          }
+
           // if (isClosed) {
           //   gsap.to(cardBody, { autoAlpha: 1, duration: 0.2, x: 0, y: 0, ease: "power2.out" });
           // }
