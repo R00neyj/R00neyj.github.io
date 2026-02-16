@@ -202,6 +202,7 @@ const gsapScrollTo = () => {
   const toAbout = document.querySelectorAll(".toAbout");
   const toWorks = document.querySelectorAll(".toWorks");
   const toContact = document.querySelectorAll(".toContact");
+  const toProject = document.querySelectorAll(".toProject");
   const toTop = document.querySelectorAll(".toTop");
 
   const letsGo = (trigger, target) => {
@@ -217,6 +218,7 @@ const gsapScrollTo = () => {
   letsGo(toAbout, "#about");
   letsGo(toWorks, "#works");
   letsGo(toContact, "#contact");
+  letsGo(toProject, "#project");
   letsGo(toTop, "0");
 };
 
@@ -317,7 +319,7 @@ const createWorksComponent = (works, index) => {
         </div>
       </a>
     </div>
-  `
+  `,
     )
     .join("");
 
@@ -364,7 +366,7 @@ const loading__init = () => {
   body.style.overflow = "hidden";
   loadingScreen.classList.add("active");
 
-  const skeepBtn = document.querySelector("#loading_skip");
+  const skipBtn = document.querySelector("#loading_skip");
 
   let tl = gsap.timeline({
     onComplete: loadingFinish,
@@ -386,14 +388,15 @@ const loading__init = () => {
   });
   tl.to(".loading-page .init .dot", { opacity: 0, duration: 0.1, stagger: -0.2, yoyo: true, repeat: 2 });
 
-  skeepBtn.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") tl.pause(), loadingFinish();
+  skipBtn.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") (tl.pause(), loadingFinish());
   });
+
+  marquee__init();
+  mouseReticle();
 };
 
 function loadingFinish() {
-  marquee__init();
-  mouseReticle();
   document.querySelector(".loading-page").classList.remove("active");
   document.querySelector("body").style.overflow = "hidden auto";
 
@@ -412,6 +415,48 @@ function loadingFinish() {
 
   tl.from(targetArr, { stagger: 0.2, opacity: 0, y: 30, duration: 1, ease: "power2.out" });
 }
+
+class projectCard extends HTMLElement {
+  connectedCallback() {
+    const imgSrc = this.getAttribute("img-src") || "";
+    const linkUrl = this.getAttribute("link-url") || "#";
+    const title = this.querySelector(".title").innerHTML || "";
+    const desc = this.querySelector(".desc").innerHTML || "";
+    const spec = this.querySelector(".spec").innerHTML || "";
+    const period = this.querySelector(".period").innerHTML || "";
+
+    this.innerHTML = `
+     <div class="card">
+        <div class="card__bg img-box" >
+          <img src="${imgSrc}" loading="lazy" alt="" data-speed="0.1" />
+        </div>
+        <div class="inner">
+          <div class="card__head">
+            <h2 class="title">
+              ${title}
+            </h2>
+          </div>
+          <div class="card__body">
+            <div class="text">
+              <p class="desc">
+                ${desc}
+              </p>
+              <p class="spec">
+                ${spec}
+              </p>
+              <p class="period">
+                ${period}
+              </p>
+            </div>
+            <div class="btn-wrap">
+              <div class="btn"><a href="${linkUrl}" target="_blank">Github</a></div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+}
+customElements.define("project-card", projectCard);
 
 document.addEventListener("DOMContentLoaded", () => {
   getData__init();

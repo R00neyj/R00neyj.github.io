@@ -1,0 +1,71 @@
+[
+  {
+    "id": "sweatie",
+    "label": "Team",
+    "title": "SWEATIE",
+    "skill": "Figma / Ai / Ps / Pr / Blender / HTML / CSS / JS",
+    "period": "25.7 - 25.10",
+    "desc": "러닝을 통해 성취감을 느끼고, 건강을 증진하며, 사회적으로 연결될 수 있는 통합적인 플랫폼을 목표로 한 웹 / 앱 프로젝트 입니다",
+    "roll": "팀 리더",
+    "btns": [
+      { "text": "Process", "link": "https://r00neyj.github.io/sweatie_process_page/" },
+      { "text": "Web", "link": "https://r00neyj.github.io/Sweatie_Brand_Web/" }
+    ],
+    "imgSrc": "./images/sweatie.webp"
+  },
+  {
+    "id": "eatgo",
+    "label": "Team",
+    "title": "EATGO",
+    "skill": "Figma / Ai / Ps / HTML / CSS / JS",
+    "period": "25.10 - 25.11",
+    "desc": "번거로운 기록 과정을 줄여주고 사용자가 신경 쓰지 않게 식습관 관리를 도와주기 위한 앱 프로젝트 입니다",
+    "roll": "팀 리더",
+    "btns": [{ "text": "Process", "link": "https://r00neyj.github.io/Eatgo_Process/" }],
+    "imgSrc": "./images/eatgo.webp"
+  },
+  {
+    "id": "yp",
+    "label": "Personal",
+    "title": "YoungPoong Precision.Ltd",
+    "skill": "Figma / Ai / Ps / HTML / CSS / JS",
+    "period": "25.10 - 25.11",
+    "desc": "영풍정밀의 기술적 정체성을 강화하기 위해 정보 전달력을 개선하고, 산업적 감각의 UI를 통해 기업의 신뢰도와 혁신적 이미지를 투영한 리디자인 프로젝트입니다",
+    "roll": "",
+    "btns": [{ "text": "Web", "link": "https://r00neyj.github.io/YoungPoongPrecision_redesign/" }],
+    "imgSrc": "./images/work_thumbnail_4.webp"
+  },
+  {
+    "id": "3m",
+    "label": "Personal",
+    "title": "3M",
+    "skill": "Figma / Ps / HTML / CSS / JS",
+    "period": "25.12",
+    "desc": "방대한 제품군으로 인한 정보의 불균형을 줄이고, 3M의 다양한 시장 경쟁력과 핵심 솔루션을 직관적인 그리드와 정제된 비주얼 시스템으로 재정립한 리디자인 프로젝트입니다",
+    "roll": "",
+    "btns": [{ "text": "Web", "link": "https://r00neyj.github.io/3M_redesign/" }],
+    "imgSrc": "./images/work_thumbnail_3M.webp"
+  },
+  {
+    "id": "legodt",
+    "label": "Personal",
+    "title": "Legodt",
+    "skill": "HTML / CSS / JS",
+    "period": "25.8",
+    "desc": "학습 목적으로 Legodt를 클론 코딩 하였습니다",
+    "roll": "",
+    "btns": [{ "text": "Web", "link": "https://r00neyj.github.io/legodt_copy/" }],
+    "imgSrc": "./images/work_thumbnail_5.webp"
+  },
+  {
+    "id": "agencyyolo",
+    "label": "Personal",
+    "title": "AgencyYOLO",
+    "skill": "HTML / CSS / JS",
+    "period": "25.10",
+    "desc": "학습 목적으로 AgencyYOLO를 클론 코딩 하였습니다",
+    "roll": "",
+    "btns": [{ "text": "Web", "link": "https://r00neyj.github.io/Agency_yolo_copy/" }],
+    "imgSrc": "./images/work_thumbnail_1.webp"
+  }
+]
