@@ -468,7 +468,7 @@ class projectCard extends HTMLElement {
           <div class="card__body" data-gsap="drag">
             <div class="body-head">
               ${title}
-              <div class="close">
+              <div class="close" data-clickable="true">
                 <span class="line"></span><span class="line"></span>
               </div>
             </div>
@@ -484,7 +484,7 @@ class projectCard extends HTMLElement {
               </p>
             </div>
             <div class="btn-wrap">
-              <div class="btn"><a href="${linkUrl}" target="_blank">${BtnName}</a></div>
+              <div class="btn"><a href="${linkUrl}" target="_blank" data-clickable="true">${BtnName}</a></div>
             </div>
           </div>
         </div>
@@ -496,22 +496,16 @@ class projectCard extends HTMLElement {
 
         const closeBtn = this.querySelector(".close");
         const cardBody = this.querySelector(".card__body");
-        let isClosed = false;
 
         closeBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           gsap.to(cardBody, { autoAlpha: 0, duration: 0.2, ease: "power2.out" });
-          isClosed = true;
         });
 
         this.querySelector(".card").addEventListener("click", (e) => {
           if (!e.target.closest(".card__body")) {
             gsap.to(cardBody, { autoAlpha: 1, duration: 0.2, x: 0, y: 0, ease: "power2.out" });
           }
-
-          // if (isClosed) {
-          //   gsap.to(cardBody, { autoAlpha: 1, duration: 0.2, x: 0, y: 0, ease: "power2.out" });
-          // }
         });
       });
     };
