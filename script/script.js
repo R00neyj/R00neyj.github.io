@@ -470,20 +470,14 @@ class projectCard extends HTMLElement {
           <div class="card__body" data-gsap="drag">
             <div class="body-head">
               ${title}
-              <div class="close" data-clickable="true">
+              <button class="close" data-clickable="true">
                 <span class="line"></span><span class="line"></span>
-              </div>
+              </button>
             </div>
             <div class="text">
-              <p class="desc">
-                ${desc}
-              </p>
-              <p class="spec">
-                ${spec}
-              </p>
-              <p class="period">
-                ${period}
-              </p>
+              <p class="desc">${desc}</p>
+              <p class="spec">${spec}</p>
+              <p class="period">${period}</p>
             </div>
             <div class="btn-wrap">
               <div class="btn"><a href="${linkUrl}" target="_blank" data-clickable="true">${BtnName}</a></div>

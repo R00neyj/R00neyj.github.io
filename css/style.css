@@ -328,6 +328,7 @@ header .pc-nav ul {
     .line {
       top: 50%;
       transform: translate(-50%, -50%) rotate(-45deg);
+      pointer-events: none;
     }
     .line2 {
       top: 50%;
@@ -849,6 +850,7 @@ header.mobile-active .mob-header {
         height: 1px;
         background-color: #fff;
         transform: rotate(45deg);
+        pointer-events: none;
       }
       .line:nth-of-type(2) {
         transform: rotate(-45deg);
