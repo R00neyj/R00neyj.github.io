@@ -279,6 +279,8 @@ const gsapAni__drag = (boundEl, randomRotate = true) => {
     Draggable.create(dragEls, {
       bounds: el,
       inertia: true,
+      dragClickables: true,
+      minimumMovement: 5,
     });
 
     if (randomRotate) {
